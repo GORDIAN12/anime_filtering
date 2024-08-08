@@ -1,15 +1,57 @@
-import http.client
-
-conn = http.client.HTTPSConnection("imdb-movies-web-series-etc-search.p.rapidapi.com")
-
+import requests
+import streamlit as st
+import json
+import pandas as pd
 headers = {
-    'x-rapidapi-key': "7e5e99738amsh5df59f7fab899acp1232cejsnadcccb8d8c31",
-    'x-rapidapi-host': "imdb-movies-web-series-etc-search.p.rapidapi.com"
+    'x-rapidapi-key': "7488d89043msh72447b1dff41c7dp1082bajsn73a506665065",
+    'x-rapidapi-host': "anime-db.p.rapidapi.com"
 }
 
-conn.request("GET", "/yugioh!gx.json", headers=headers)
+def search_anime(anime):
+    search_url = f"https://anime-db.p.rapidapi.com/anime?page=1&size=10&search={anime}"
+    response = requests.get(search_url, headers=headers)
+    anime_data = response.json()
+    data_list=anime_data["data"]
+    title=[item['title'] for item in data_list]
+    print(title[0])
+    get_url=[item['image'] for item in data_list]
+    print(get_url[0])
+    return get_url[0]
 
-res = conn.getresponse()
-data = res.read()
+def recommend_anime(anime_name):
+    index=animes[animes['title']==anime_name].index[0]
 
-print(data.decode("utf-8"))
+    distances=sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x:x[1])
+    recmmended_name=[]
+    recmmended_img=[]
+
+    for i in distances[1:6]:
+        anime_title=animes.iloc[i[0]].index
+        print(anime_title)
+        anime_search=animes.iloc[i[0]].title
+        recmmended_img.append(search_anime(anime_search))
+        recmmended_name.append(animes.iloc[i[0]].title)
+
+    return recmmended_name,recmmended_img
+
+st.header('Movie Recommendations')
+animes=pd.read_pickle('animes_list.pkl')
+similarity=pd.read_pickle('similarity.pkl')
+
+anime_list=animes['title'].values
+selected_movies=st.selectbox(
+    "Selecciona el anime de la lista",
+    anime_list
+)
+
+
+import streamlit as st
+
+if st.button('Recomendar la pelicula'):
+    recommend_movie_names,recommend_movie_posters=recommend_anime(selected_movies)
+    cols=st.columns(5)
+
+    for i, col in enumerate(cols):
+        col.text(recommend_movie_names[i])
+        col.image(recommend_movie_posters[i])
+
