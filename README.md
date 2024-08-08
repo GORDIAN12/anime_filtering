@@ -1,3 +1,3 @@
 # System recommendation with sos_similrarity
 
-![image_init](https://github.com/user-attachments/assets/233db91b-9bd3-4821-b60e-91ffeaca91d9)
+![image](https://github.com/user-attachments/assets/2b061286-aba7-4593-a9d7-2ac443def972)
