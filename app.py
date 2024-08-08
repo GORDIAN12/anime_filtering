@@ -3,9 +3,10 @@ import streamlit as st
 import json
 import pandas as pd
 headers = {
-    'x-rapidapi-key': "YOUR_RAPIDAPI_KEY",
-    'x-rapidapi-host': "YOUR_RAPIDAPI_HOST"
+    'x-rapidapi-key': "7488d89043msh72447b1dff41c7dp1082bajsn73a506665065",
+    'x-rapidapi-host': "anime-db.p.rapidapi.com"
 }
+
 
 def search_anime(anime):
     search_url = f"https://anime-db.p.rapidapi.com/anime?page=1&size=10&search={anime}"
