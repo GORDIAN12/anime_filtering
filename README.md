@@ -54,12 +54,13 @@ Example project structure:
 anime_filtering/
 │
 ├── app.py
-├── animes_list.pkl
 ├── similarity.pkl
-├── genres_filter.pkl
 ├── similarity_genres.pkl
-├── requirements.txt
+├── genres_filter.pkl
+├── filtrado.pkl
+├── filtering_anime.ipynb
+├── animes_list.pkl
 └── README.md
 
-
+```
 ![image](https://github.com/user-attachments/assets/2b061286-aba7-4593-a9d7-2ac443def972)
